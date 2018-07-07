@@ -5,7 +5,7 @@ import sys
 import time
 import RPi.GPIO as io
 import subprocess
- 
+
 io.setmode(io.BCM)
 SHUTOFF_DELAY = 60  # seconds
 PIR_PIN = 23        # Pin 16 on the board
@@ -14,7 +14,7 @@ def main():
     io.setup(PIR_PIN, io.IN)
     turned_off = False
     last_motion_time = time.time()
- 
+
     while True:
         if io.input(PIR_PIN):
             last_motion_time = time.time()
@@ -27,7 +27,7 @@ def main():
                 turned_off = True
                 turn_off()
         time.sleep(.1)
- 
+
 def turn_on():
     subprocess.call("sh ./monitor_on.sh", cwd=os.path.dirname(os.path.realpath(__file__)), shell=True)
 
