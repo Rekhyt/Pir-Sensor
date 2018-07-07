@@ -1,14 +1,15 @@
 #!/usr/bin/env python
- 
+
+import os
 import sys
 import time
 import RPi.GPIO as io
 import subprocess
  
 io.setmode(io.BCM)
-SHUTOFF_DELAY = 20  # seconds
-PIR_PIN = 17        # Pin 11 on the board
- 
+SHUTOFF_DELAY = 60  # seconds
+PIR_PIN = 23        # Pin 16 on the board
+
 def main():
     io.setup(PIR_PIN, io.IN)
     turned_off = False
@@ -28,11 +29,11 @@ def main():
         time.sleep(.1)
  
 def turn_on():
-    subprocess.call("sh monitor_on.sh", shell=True)
- 
+    subprocess.call("sh ./monitor_on.sh", cwd=os.path.dirname(os.path.realpath(__file__)), shell=True)
+
 def turn_off():
-    subprocess.call("sh monitor_off.sh", shell=True)
- 
+    subprocess.call("sh ./monitor_off.sh", cwd=os.path.dirname(os.path.realpath(__file__)), shell=True)
+
 if __name__ == '__main__':
     try:
         main()
